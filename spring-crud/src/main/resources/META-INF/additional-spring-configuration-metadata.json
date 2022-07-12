@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "jms.jwt.token.auth.path",
+    "type": "java.lang.String",
+    "description": "A description for 'jms.jwt.token.auth.path'"
+  },
+  {
+    "name": "jms.jwt.token.expires-in",
+    "type": "java.lang.String",
+    "description": "A description for 'jms.jwt.token.expires-in'"
+  },
+  {
+    "name": "jms.jwt.token.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jms.jwt.token.secret'"
+  }
+]}

@@ -1,0 +1,46 @@
+# Oracle settings
+server:
+  port: 8080
+  error:
+    include-stacktrace: never
+    include-binding-errors: never
+
+
+jms:
+ jwt:
+  security:
+   enabled: true
+  token:
+   auth:
+    path: "/auth"
+   secret: "igh"
+   expires-in: 18000
+  excluded:
+   path: ""
+
+
+spring:
+  application:
+    name: react-crud-server
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/${sid}
+    username: ${bd_username}
+    password: ${bd_password}
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: ${username_gmail}
+    password: ${password_gmail}
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    protocol: smtp
+    test-connection: false
