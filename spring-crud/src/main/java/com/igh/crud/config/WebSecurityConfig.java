@@ -58,7 +58,6 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
 		http.csrf().disable().cors().configurationSource(corsConfigurationSource()).and().exceptionHandling()
 				.authenticationEntryPoint(new JwtAuthenticationEntryPoint()).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -67,10 +66,10 @@ public class WebSecurityConfig {
 		return http.build();
 	}
 
-	@Bean
+	/*@Bean
 	public WebSecurityCustomizer webSecurityCustomizer() {
-		return (web) -> web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**");
-	}
+		return (web) -> web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**","/canciones/**");
+	}*/
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {

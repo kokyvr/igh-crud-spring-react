@@ -16,39 +16,18 @@ public class GuardarArchivo {
 	private GuardarArchivo() {
 		
 	}
+	public static String randomAlphaNumeric(int count) {
+		String CARACTERES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		StringBuilder builder = new StringBuilder();
+		while (count-- != 0) {
+			int character = (int) (Math.random() * CARACTERES.length());
+			builder.append(CARACTERES.charAt(character));
+		}
+		return builder.toString();
+	}
 	
-	public static String guardarArchivo(MultipartFile multiPart, String ruta) throws IOException {  
-		// Obtenemos el nombre original del archivo.
-				String nombreOriginal = multiPart.getOriginalFilename();
-				// Reemplazamos en el nombre de archivo los espacios por guiones.
-				nombreOriginal = nombreOriginal.replace(" ", "-");
-				// Agregamos al nombre del archivo 8 caracteres aleatorios para evitar duplicados.
-				/*File convertFile = new File(ruta + nombreOriginal);
-				convertFile.createNewFile();
-				try (FileOutputStream fout = new FileOutputStream(convertFile)){
-					// Formamos el nombre del archivo para guardarlo en el disco duro.
-				    
-					fout.write(multiPart.getBytes());
-				    	
-					  
-					
-					
-				} catch (Exception e) {
-						e.printStackTrace();
-						return null;
-				}*/
-				
-				File file = new File(ruta + multiPart.getOriginalFilename());
-				try {
-					OutputStream os = new FileOutputStream(file);
-					os.write(multiPart.getBytes());
-					os.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-				
-				
-				return nombreOriginal;
+	public static void deleteFile(String ruta) {
+		File file = new File(ruta);
+		file.delete();
 	}
 }

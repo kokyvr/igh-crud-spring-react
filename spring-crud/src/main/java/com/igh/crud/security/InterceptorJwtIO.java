@@ -45,10 +45,9 @@ public class InterceptorJwtIO extends OncePerRequestFilter{
 		String username = null;
 		String jwtToken = null;
 		
-		System.out.println("TOKEN FILTER :"+request.getServletPath());
+		System.out.println("TOKEN FILTER :"+request.getRequestURI());
 		
-		if(url.equals(AUTH_PATH) || excluded(url)) {
-			
+		if(url.equals(AUTH_PATH) || excluded(url) ) {
 		}else if(requestTokenHeader !=null && requestTokenHeader.startsWith("Bearer ")) {
 			jwtToken = requestTokenHeader.substring(7);
 			try {
@@ -56,13 +55,16 @@ public class InterceptorJwtIO extends OncePerRequestFilter{
 				
 			}catch(IllegalArgumentException e) {
 				System.out.println("No se puede obtener el token JWT");
+				throw new RuntimeException("No se puede obtener el token JWT");
 			}
 			catch (ExpiredJwtException  e) {
 				// TODO: handle exception
 				System.out.println("El token JWT ha caducado");
+				throw new RuntimeException("El token JWT ha caducado");
 			}
 		}else {
 			System.out.println("El token no comienza con Bearer String");
+			throw new RuntimeException("El token no comienza con Bearer String");
 		}
 		if(username !=null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails userDetails = serviceUser.loadUserByUsername(username);
@@ -82,13 +84,16 @@ public class InterceptorJwtIO extends OncePerRequestFilter{
 	private boolean excluded(String path) {
 		boolean result = false;
 		for(String exc:excluded) {
-			if(exc.equals("#") && exc.equals(path)) {
+			if(exc.equals("#") && exc.equals(path) || path.startsWith(exc)) {
+				
 				result=true;
 			}
 		}
 		
 		return result;
 	}
+	
+
 	
 
 }

@@ -12,12 +12,14 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "cancion")
-@SequenceGenerator(name = "sq_cancion",sequenceName = "sq_role",allocationSize = 1)
+@SequenceGenerator(name = "sq_cancion",sequenceName = "sq_cancion",allocationSize = 1)
 public class Cancion implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -37,6 +39,7 @@ public class Cancion implements Serializable{
 	@Column(name = "nombre_archivo")
 	private String nombreArchivo;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Usuario usuario;
 }
