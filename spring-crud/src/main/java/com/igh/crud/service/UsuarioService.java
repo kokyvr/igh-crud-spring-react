@@ -20,5 +20,7 @@ public interface UsuarioService {
 	public int update(Usuario usuario);
 	
 	public JwtResponse processLogin(MultiValueMap<String,String> paramMap);
+	
+	public Usuario getUserSession();
 
 }

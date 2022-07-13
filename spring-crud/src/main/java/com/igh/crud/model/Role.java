@@ -28,10 +28,7 @@ import lombok.Setter;
 @Table(name = "ROLE")
 public class Role implements Serializable{
 
-	@Override
-	public String toString() {
-		return "Role [id=" + id + ", roleName=" + roleName + ", users=" + users + "]";
-	}
+
 
 	private static final long serialVersionUID = 1L;
 
@@ -75,7 +72,10 @@ public class Role implements Serializable{
 		result = prime * result + ((roleName == null) ? 0 : roleName.hashCode());
 		return result;
 	}
-	
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", roleName=" + roleName + ", users=" + users + "]";
+	}
 
 
 	

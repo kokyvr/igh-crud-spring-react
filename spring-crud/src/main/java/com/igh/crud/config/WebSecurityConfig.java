@@ -27,14 +27,14 @@ import com.igh.crud.security.JwtAuthenticationEntryPoint;
 import com.igh.crud.service.impl.UsuarioServiceImpl;
 
 import lombok.RequiredArgsConstructor;
-@RequiredArgsConstructor
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig {
 
-	private final AuthenticationConfiguration configuration;
+	@Autowired
+	private  AuthenticationConfiguration configuration;
 
 	@Autowired
 	private UsuarioServiceImpl jwtUserDetailsService;
@@ -47,10 +47,7 @@ public class WebSecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 
-	/*
-	 * @Bean public UserDetailsService userDetailsService() { return
-	 * jwtUserDetailsService; }
-	 */
+
 
 	@Bean
 	AuthenticationManager authenticationManager() throws Exception {

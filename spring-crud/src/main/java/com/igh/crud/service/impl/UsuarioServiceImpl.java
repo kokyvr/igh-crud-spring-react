@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,12 @@ import com.igh.crud.model.Usuario;
 import com.igh.crud.repository.UsuarioRepository;
 import com.igh.crud.security.JwtUtil;
 import com.igh.crud.service.MailService;
+import com.igh.crud.service.PageableMapper;
 import com.igh.crud.service.RoleService;
 import com.igh.crud.service.UsuarioService;
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService,UserDetailsService {
+public class UsuarioServiceImpl implements UsuarioService,UserDetailsService,PageableMapper<Usuario> {
 
 	@Autowired
 	private JwtUtil jwtTokenUtil;
@@ -132,19 +134,13 @@ public class UsuarioServiceImpl implements UsuarioService,UserDetailsService {
 
 	@Override
 	public Map<String, Object> getUsuarios(int page, int size) {
-		Map<String, Object> mapUser = new HashMap<>();
+		
 		
 		PageRequest pageable = PageRequest.of(page, size);
 		Page<Usuario> usuariosPage = usuarioDao.findAll(pageable);
 
-		List<Usuario> usuarios =  usuariosPage.getContent();
+		Map<String, Object> mapUser = mapperPageable(usuariosPage);
 		
-		usuarios.stream().forEach(u->u.setPassword("**************"));
-		
-		mapUser.put("usuarios", usuariosPage.getContent());
-		mapUser.put("totalElements", usuariosPage.getTotalElements());
-		mapUser.put("totalPages", usuariosPage.getTotalPages());
-		mapUser.put("currentPage", usuariosPage.getNumber());
 
 		return mapUser;
 	}
@@ -207,6 +203,32 @@ public class UsuarioServiceImpl implements UsuarioService,UserDetailsService {
 		jwt.setUsername(userDetails.getUsername());
 		
 		return jwt;
+	}
+
+
+	@Override
+	public Map<String, Object> mapperPageable(Page<Usuario> mapper) {
+		List<Usuario> usuarios =  mapper.getContent();
+		Map<String, Object> mapUser = new HashMap<>();
+		usuarios.stream().forEach(u->u.setPassword("**************"));
+		
+		mapUser.put("usuarios", usuarios);
+		mapUser.put("totalElements", mapper.getTotalElements());
+		mapUser.put("totalPages", mapper.getTotalPages());
+		mapUser.put("currentPage", mapper.getNumber());
+		return mapUser;
+	}
+
+
+	@Override
+	public Usuario getUserSession() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth.getName().equals("anonymousUser")) {
+			return	 null;
+			}
+		Optional<Usuario>optional=	usuarioDao.findByUsuario(auth.getName());
+		
+		return optional.orElse(null);
 	}
 
 

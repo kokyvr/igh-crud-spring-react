@@ -28,7 +28,6 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService service;
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping
 	public ResponseEntity<Integer> insertar(@Valid @RequestBody Usuario usuario) {
 		int rpta = 0;
