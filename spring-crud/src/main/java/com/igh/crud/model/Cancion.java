@@ -33,6 +33,10 @@ public class Cancion implements Serializable{
 	@Column(name = "cantante")
 	private String cantante;
 	
+	@NotEmpty
+	@Column(name = "nombre_archivo")
+	private String nombreArchivo;
+	
 	@ManyToOne
 	private Usuario usuario;
 }

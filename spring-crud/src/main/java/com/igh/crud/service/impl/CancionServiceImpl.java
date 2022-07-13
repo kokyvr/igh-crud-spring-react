@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.igh.crud.model.Cancion;
 import com.igh.crud.model.Usuario;
@@ -14,6 +16,7 @@ import com.igh.crud.repository.CancionRepository;
 import com.igh.crud.service.CancionService;
 import com.igh.crud.service.PageableMapper;
 import com.igh.crud.service.UsuarioService;
+import com.igh.crud.util.GuardarArchivo;
 
 @Service
 public class CancionServiceImpl implements CancionService, PageableMapper<Cancion> {
@@ -23,6 +26,8 @@ public class CancionServiceImpl implements CancionService, PageableMapper<Cancio
 	
 	@Autowired
 	private CancionRepository cancionDao;
+	
+	
 
 	@Override
 	public int insertar(Cancion cancion) {
@@ -30,7 +35,7 @@ public class CancionServiceImpl implements CancionService, PageableMapper<Cancio
 		try {
 			Usuario usuario = usuarioService.getUserSession();
 			cancion.setUsuario(usuario);
-			cancionDao.save(cancion);
+			//cancionDao.save(cancion);
 			rpta = 1;
 		} catch (Exception e) {
 			// TODO: handle exception

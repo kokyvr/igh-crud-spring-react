@@ -2,7 +2,6 @@ package com.igh.crud.config;
 
 import java.util.Arrays;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,8 +24,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.igh.crud.security.InterceptorJwtIO;
 import com.igh.crud.security.JwtAuthenticationEntryPoint;
 import com.igh.crud.service.impl.UsuarioServiceImpl;
-
-import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity

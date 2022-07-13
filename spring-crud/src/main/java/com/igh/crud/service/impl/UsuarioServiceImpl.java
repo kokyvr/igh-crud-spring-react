@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -39,7 +40,9 @@ import com.igh.crud.service.RoleService;
 import com.igh.crud.service.UsuarioService;
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService,UserDetailsService,PageableMapper<Usuario> {
+public class UsuarioServiceImpl implements UsuarioService,
+	UserDetailsService,
+	PageableMapper<Usuario> {
 
 	@Autowired
 	private JwtUtil jwtTokenUtil;
@@ -187,6 +190,7 @@ public class UsuarioServiceImpl implements UsuarioService,UserDetailsService,Pag
 
 	@Override
 	public JwtResponse processLogin(MultiValueMap<String, String> paramMap) {
+		JwtResponse jwt = new JwtResponse();
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(paramMap.getFirst("username"), paramMap.getFirst("password")));
 		SecurityContextHolder.getContext().setAuthentication(authentication);;
 		
@@ -194,7 +198,7 @@ public class UsuarioServiceImpl implements UsuarioService,UserDetailsService,Pag
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		Date tokenexpiredDate = jwtTokenUtil.getExpirationDateFromToken(token);
 		
-		JwtResponse jwt = new JwtResponse();
+	
 		
 		
 		jwt.setJwttoken(token);
@@ -229,6 +233,7 @@ public class UsuarioServiceImpl implements UsuarioService,UserDetailsService,Pag
 		Optional<Usuario>optional=	usuarioDao.findByUsuario(auth.getName());
 		
 		return optional.orElse(null);
+		
 	}
 
 

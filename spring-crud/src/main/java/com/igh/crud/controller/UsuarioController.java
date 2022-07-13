@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,7 +41,7 @@ public class UsuarioController {
 
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	//@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/get")
 	public ResponseEntity<Map<String, Object>> getUsuariosPageable(@RequestParam int page, @RequestParam int size) {
 		Map<String, Object> map;
@@ -55,7 +54,7 @@ public class UsuarioController {
 
 		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 	}
-	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	//@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Integer> deleteById(@PathVariable Integer id) {
 		int rpta = 0;
@@ -67,7 +66,7 @@ public class UsuarioController {
 
 		return new ResponseEntity<Integer>(rpta, HttpStatus.OK);
 	}
-	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	//@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PutMapping
 	public ResponseEntity<Integer> update(@Valid @RequestBody Usuario usuario) {
 		int rpta = 0;

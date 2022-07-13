@@ -9,7 +9,7 @@ server:
 jms:
  jwt:
   security:
-   enabled: true
+   enabled: false
   token:
    auth:
     path: "/auth"
@@ -44,3 +44,14 @@ spring:
             enable: true
     protocol: smtp
     test-connection: false
+    
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
+        
+        
+
+        
+        
