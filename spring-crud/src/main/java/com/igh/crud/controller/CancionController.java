@@ -3,10 +3,10 @@ package com.igh.crud.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.security.PermitAll;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,6 +40,7 @@ public class CancionController {
 
 		if (mp3.isEmpty() != true) {
 			nombreArchivo = GuardarArchivo.randomAlphaNumeric(5) + "-" + (mp3.getOriginalFilename()).toUpperCase();
+			nombreArchivo= nombreArchivo.replaceAll(" ","");
 			file = new File(carpeta + nombreArchivo);
 			try {
 				OutputStream os = new FileOutputStream(file);
@@ -55,7 +56,7 @@ public class CancionController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Integer> insertar(@RequestBody Cancion cancion) {
+	public ResponseEntity<Integer> insertar(@Valid @RequestBody Cancion cancion) {
 		int rpta = 0;
 		if (nombreArchivo == null) {
 			return new ResponseEntity<Integer>(rpta, HttpStatus.BAD_REQUEST);
