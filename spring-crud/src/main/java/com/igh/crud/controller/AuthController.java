@@ -23,8 +23,6 @@ public class AuthController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@Autowired
-	private PasswordEncoder pass;
 	
 	@PermitAll
 	@PostMapping
@@ -34,7 +32,6 @@ public class AuthController {
 		try {
 			jwt = usuarioService.processLogin(paramMap);
 		} catch (BadCredentialsException  e) {
-			System.out.println(e.getMessage());
 			return new ResponseEntity<>("Credenciales Incorrectas.",HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
