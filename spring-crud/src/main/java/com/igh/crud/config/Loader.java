@@ -10,6 +10,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 import com.igh.crud.model.Estado;
 import com.igh.crud.model.Role;
@@ -35,9 +36,11 @@ public class Loader {
 	
 	private static final String ROLE_MODERADOR = "ROLE_MODERADOR";
 
+
 	@EventListener
 	public void appReady(ApplicationReadyEvent event) {
-		System.out.println("Ready");
+
+		
 		Role roleUser = createRoleIfNotFund(ROLE_USER);
 		Role roleAdministrador = createRoleIfNotFund(ROLE_ADMINISTRADOR);
 		Role roleModerador = createRoleIfNotFund(ROLE_MODERADOR);
@@ -47,6 +50,7 @@ public class Loader {
 		roles.add(roleModerador);
 		roles.add(roleUser);
 		roles.add(roleAdministrador);
+		System.out.println("Ready");
 		createUserIfNotFound("venturakoky12@gmail.com",roles);
 		
 	}
