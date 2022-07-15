@@ -47,7 +47,6 @@ public class Loader {
 		roles.add(roleModerador);
 		roles.add(roleUser);
 		roles.add(roleAdministrador);
-		//
 		createUserIfNotFound("venturakoky12@gmail.com",roles);
 		
 	}
@@ -76,7 +75,7 @@ public class Loader {
 		
 		if(role ==null) {
 			
-			roleService.save(new Role(roleName));
+			role =roleService.save(new Role(roleName));
 			
 		}
 		
